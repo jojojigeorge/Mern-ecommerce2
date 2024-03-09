@@ -7,6 +7,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const CartPage = () => {
+  let amount=0
   const navigate = useNavigate();
   const [authDetails, setAuthDetails] = useAuth();
   const [cartDetails, setCartDetails] = useCart();
@@ -14,35 +15,36 @@ const CartPage = () => {
   // calculate total cart price 
   const totalPrice = () => {
     let total = 0;
-    cartDetails.map((p) => (total = total + p.price));
+    cartDetails.map((p) => (total = total + (p.product.price*p.quantity)));
     return total;
   };
   // remove cart item from local storage
   const handleClearCart = () => {
       setCartDetails([]);
     localStorage.removeItem("cart");
-    // toast.success("cart item  successfully", { duration: 6000 });
-  };
+  };  
 
   // handle checkout place order
   const handleCheckout = async (e) => { 
     try {
       const { data } = await axios.post("/api/v1/product/create-order", { cartDetails });
-      
-      console.log("after order created first time", data);
+      amount=data.order.amount
+      console.log('handleCheckout data:-',data)
       newOrder = data.newOrder;
       var options = {
         key: "rzp_test_Wg7kegePFl1cq5", // Enter the Key ID generated from the Dashboard
-        amount: data.order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        amount:amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         currency: "INR",
         name: "MERN @2",
         description: "Test Transaction",
         // "image": "/favicon.png",
         order_id: data.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         handler: async function (response) {
+          console.log('response',response)
           const { data } = await axios.post("/api/v1/product/verify-payment", { response, newOrder });
           if(data.success)
             handleClearCart()
+          navigate("/dashboard/user/user-order")
         },
         prefill: {
           name: "Gaurav Kumar",
@@ -70,10 +72,10 @@ const CartPage = () => {
   };
 
   // remove cart item
-  const removeCartItem = (pid) => {
+  const removeCartItem = (pid) => { 
     try {
       const mycart = [...cartDetails];
-      const index = mycart.findIndex((item) => item._id === pid);
+      const index = mycart.findIndex((item) => item.product._id === pid);
       mycart.splice(index, 1);
       setCartDetails(mycart);
       localStorage.setItem("cart", JSON.stringify(mycart));
@@ -93,18 +95,18 @@ const CartPage = () => {
         <div className="row">
           <div className="col-md-6 card p-4">
             {cartDetails?.map((p) => (
-              <div key={p._id} className="row mb-2 p-3 card flex-row">
+              <div key={p.product._id} className="row mb-2 p-3 card flex-row">
                 <div className="col-md-4">
-                  <img src={`http://localhost:8081/api/v1/product/getproduct-photo/${p._id}`} className="card-img-top" alt={p.name} width="100px" height={"100px"} />
+                  <img src={`/api/v1/product/getproduct-photo/${p.product._id}`} className="card-img-top" alt={p.product.name} width="100px" height={"100px"} />
                 </div>
                 <div className="col-md-8">
-                  <p>{p.name}</p>
-                  <p>{p.description.substring(0, 30)}</p>
-                  <p>Price : {p.price}</p>
-                  <button className="btn btn-danger" onClick={() => removeCartItem(p._id)}>
+                  <p>{p.product.name}</p>
+                  <p>{p.product.description.substring(0, 30)}</p>
+                  <span>Price : {p.product.price}</span><span> X {p.quantity}</span><br />
+                  <button className="btn btn-danger" onClick={() => removeCartItem(p.product._id)}>
                     Remove
                   </button>
-                </div>
+                </div>  
               </div>
             ))}
           </div>

@@ -2,8 +2,9 @@ import mongoose from "mongoose"
 
 const orderSchema =new mongoose.Schema({
     products:[{
-        type:mongoose.ObjectId,
-        ref:'Product'
+        type:mongoose.Schema.Types.Mixed,
+        ref:'Product',
+        quantity:Number
     }],
     payment:{},
 
@@ -13,8 +14,8 @@ const orderSchema =new mongoose.Schema({
     },
     status:{
         type:String,
-        default:"Not Process",
-        enum:["Not Process","Processing","Order placed","Shipping","Deliverd","Cancel"]
+        default:"Not Processed",
+        enum:["Not Processed","Processing","Order placed","Shipping","Deliverd","Cancel"]
     }
 
 },{timestamps:true})

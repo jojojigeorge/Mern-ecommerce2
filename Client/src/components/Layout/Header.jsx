@@ -16,11 +16,13 @@ const Header = () => {
       token: "",
     });
     localStorage.removeItem("authDetails");
+    localStorage.removeItem("cart");
+    setCartDetails([])
     toast.success("logout successfully", { duration: 6000 });
   };
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg">
+      <nav className="navbar sticky-top navbar-expand-lg bg">
         <div className="container-fluid">
           <Link to="/" className="navbar-brand">
             EcommerceApp

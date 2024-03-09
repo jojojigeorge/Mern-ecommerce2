@@ -6,22 +6,21 @@ import orderModel from "../models/orderModel .js"
 // fetch all user order
 export const userOrderController=async(req,res)=>{
   try {
-    const userorder=await orderModel.find({buyer:req.user._id}).populate("products", "-photo").populate('buyer',"name")
-    // res.json(userorder)
+    const userorder=await orderModel.find({buyer:req.user._id}).populate('buyer',"name").sort({createdAt:-1})
     res.status(200).send({success:true,message:'fetched all user order',userorder})
   } catch (error) {
-    res.status(500).send({success:true,message:'fetched all user order',error})
+    res.status(500).send({success:false,message:'fetched all user order',error})
   }
 } 
 
 // fetch all  order in admin
 export const allOrderController=async(req,res)=>{
   try {
-    const allorder=await orderModel.find().populate("products", "-photo").populate('buyer',"name").sort({createdAt:-1})
+    const allorder=await orderModel.find().populate('buyer',"name").sort({createdAt:-1})
     // res.json(userorder)
     res.status(200).send({success:true,message:'fetched all  order',allorder})
   } catch (error) {
-    res.status(500).send({success:true,message:'fetched all  order',error})
+    res.status(500).send({success:false,message:'fetched all  order ',error})
   }
 } 
 

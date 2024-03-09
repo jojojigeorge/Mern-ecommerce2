@@ -1,7 +1,7 @@
 import express from "express";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
 import formidable from 'express-formidable';
-import {  createOrder, createProductController, deleteProduct, filterProductByPriceCategory, getAllProduct, getProductDetails, getProductPhoto, getSimilarProducts, numberofProducts, productListController, productSearch, updateProductController, verifyPaymentController } from "../controllers/ProductController.js";
+import {  createOrder, createProductController, deleteProduct, filterProductByPriceCategory, getAllProduct, getProductDetails, getProductDetailsWithCategory, getProductPhoto, getSimilarProducts, numberofProducts, productListController, productSearch, updateProductController, verifyPaymentController } from "../controllers/ProductController.js";
 
 const router=express.Router()
 // create order
@@ -20,6 +20,9 @@ router.get("/get-allproduct",getAllProduct)
 
 // get single product details
 router.get("/get-productdetails/:slug",getProductDetails)
+
+// get single product details to get similar
+router.get("/get-productdetailswithcategory/:slug",getProductDetailsWithCategory)
 
 // delete product
 router.delete("/delete/:id",requireSignIn,isAdmin,deleteProduct)

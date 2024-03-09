@@ -9,14 +9,14 @@ const { Option } = Select;
     
 const AllOrders = () => {
   const [allorder, setAllOrder] = useState([]);
-  const [selectedstatus, setSelectedstatus] = useState(["Not Process", "Processing", "Order placed", "Shipping", "Deliverd", "Cancel"]);
+  const [selectedstatus, setSelectedstatus] = useState(["Not Processed", "Processing", "Order placed", "Shipping", "Deliverd", "Cancel"]);
   // context
   const [authDetails, setAuthDetails] = useAuth();  
 
-  // get all user order
+  // get all user order 
   const getOrderDetails = async () => {
     try {
-      const { data } = await axios.get("api/v1/auth/all-order");
+      const { data } = await axios.get("/api/v1/auth/all-order");
       setAllOrder([...allorder, ...data?.allorder]);
     } catch (error) {
       console.log("error in fetch all order details", error);
@@ -26,7 +26,6 @@ const AllOrders = () => {
   const handleChange=async(e,orderId)=>{
     try {
         const {data}=await axios.put(`/api/v1/auth/update-orderstatus/${orderId}`,{status:e})
-        console.log(data)
     } catch (error) {
         console.log("error in order staus update",error)
     }
@@ -55,10 +54,14 @@ const AllOrders = () => {
                       <th scope="col"> Date</th>    
                       <th scope="col">Status</th>
                       <th scope="col">Quantity</th>
+                      <th scope="col">Price</th>
                     </tr>
                   </thead>
                   <tbody className="text-center">
-                    {allorder?.map((order, i) => (
+                    {allorder?.map((order, i) => {
+                      let sum=0
+                      order.products.map((i)=>sum=sum+(i.quantity))
+                      return(
                       <tr key={i}>
                         <th scope="row">{i + 1}</th>
                         <td>{order.buyer.name}</td>
@@ -69,12 +72,13 @@ const AllOrders = () => {
                               <Option value={st} key={i}>
                                 {st}
                               </Option>
-                            ))}
+                            ))}   
                           </Select>
                         </td>
-                        <td>{order.products.length}</td>
+                        <td>{sum}</td>
+                        <td>{order.payment.amount/100}</td>
                       </tr>
-                    ))}
+                    )})}
                   </tbody>
                 </table>
               </div>

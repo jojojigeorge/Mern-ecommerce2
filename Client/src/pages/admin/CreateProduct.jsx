@@ -35,7 +35,6 @@ export const CreateProduct = () => {
   const handleCreate=async(e)=>{
     e.preventDefault()
     try { 
-      console.log('inside create product',productdetails.photo)
       const {name,price,quantity,description,category,shipping,photo}=productdetails
       const productData = new FormData();
       productData.append("name", name);
@@ -45,18 +44,13 @@ export const CreateProduct = () => {
       productData.append("photo", photo);
       productData.append("category", category);
       productData.append('shipping',shipping)
-      // if(!name||!price||!quantity||!description||!category){
-        const {data}=await axios.post("http://localhost:8081/api/v1/product/create-product",productData)
+        const {data}=await axios.post("/api/v1/product/create-product",productData)
         if(data.success){
-          navigate(-1)
+          navigate('/dashboard/admin/view-allproducts')
           toast.success(`${data.newProduct.name} is created`)
         }else{
           toast.error("not working")
         } 
-      // }
-      // else{
-      //   toast.error("Fill the credentials")
-      // }
     } catch (error) {
       console.log(error)
       toast.error("Error in create product")

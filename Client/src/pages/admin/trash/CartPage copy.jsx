@@ -1,7 +1,7 @@
 import React from "react";
-import Layout from "../components/Layout/Layout";
-import { useAuth } from "../context/Auth";
-import { useCart } from "../context/CartContext";
+import Layout from "../../../components/Layout/Layout";
+import { useAuth } from "../../../context/Auth";
+import { useCart } from "../../../context/CartContext";
 
 const CartPage = () => {
   const [authDetails, setAuthDetails] = useAuth();

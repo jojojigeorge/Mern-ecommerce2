@@ -1,5 +1,8 @@
 import axios from 'axios'
 import React, { createContext, useContext, useEffect, useState } from 'react'
+// import dotenv from "dotenv"
+// dotenv.config()
+
 
 const Authcontext=createContext()
 const AuthProvider = ({children}) => {
@@ -7,7 +10,8 @@ const AuthProvider = ({children}) => {
   // console.log('Token =>context/auth.jsx',authDetails.token)
   // default axios
   // axios.defaults.headers.common['Authorization']=authDetails?.token
-  axios.defaults.baseURL = 'http://localhost:8081'
+  // console.log(process.env.PORT)
+  // axios.defaults.baseURL = 'http://localhost:8081'
   axios.defaults.headers.common["Authorization"] = authDetails.token;
     useEffect(()=>{
       const data=localStorage.getItem('authDetails')

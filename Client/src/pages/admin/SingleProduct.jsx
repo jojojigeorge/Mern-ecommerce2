@@ -33,9 +33,9 @@ const SingleProduct = ({value,setValue,handleSubmit,allcat}) => {
           <div className="mb-3 text-center">
             <img src={URL.createObjectURL(value.photo)} height={"150px"} alt="" />
           </div>
-        ):(
+        ):( 
           <div className="mb-3 text-center">
-            <img src={`http://localhost:8081/api/v1/product/getproduct-photo/${value._id}`} height={"150px"} alt="getphoto" />
+            <img src={`/api/v1/product/getproduct-photo/${value?._id}`} height={"150px"} alt="getphoto" />
           </div>  
         )}
         <button className="btn btn-primary mt-3" onClick={handleSubmit}>

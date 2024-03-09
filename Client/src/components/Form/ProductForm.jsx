@@ -5,7 +5,6 @@ const ProductForm = ({value,setValue,handleSubmit,allcat}) => {
   // set product details form form
   const inputHandle = (e) => {
     setValue({ ...value, [e.target.name]: e.target.value });
-    console.log(value)
   };
 
   return (  
@@ -13,11 +12,12 @@ const ProductForm = ({value,setValue,handleSubmit,allcat}) => {
       <form onSubmit={handleSubmit}>
       <div className="p-3 w-75 card">
         <label>Select Category:</label> 
-        <select className="p-2" name="category"  onChange={inputHandle}>
+        <select className="p-2" name="category" required  onChange={inputHandle}>
+        <option value="">Pick an option</option>
           {allcat?.map((c) => (
-            <option key={c._id} value={c._id}>
-              {c.category}
-            </option>
+            <option key={c._id}  value={c._id}>
+              {c.category}  
+            </option> 
           ))}
         </select>
         <label >Select Shipping</label>

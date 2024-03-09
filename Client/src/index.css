@@ -31,7 +31,7 @@ font-family: 'Poppins', sans-serif; */
 .footer{
   color: black;
   padding: 25px;
-  background-image: linear-gradient( rgb(246, 246, 247),rgb(65, 185, 111),rgb(246, 246, 247));
+  background-image: linear-gradient( rgb(246, 246, 247),#83dba5,rgb(246, 246, 247));
 }
 .footer a{
   color: black;

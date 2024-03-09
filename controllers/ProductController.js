@@ -41,19 +41,23 @@ export const verifyPaymentController = async (req, res) => {
 // create order
 export const createOrder = (req, res) => {
   const { cartDetails } = req.body;
+  let prod_qua_array=[]
+  cartDetails.map((p)=>{
+    
+      prod_qua_array.push({prodId:p.product._id,quantity:p.quantity})
+    
+  })
   let total = 0;
-  cartDetails.map((p) => (total = total + p.price));
+  cartDetails.map((p) => (total = total + (p.product.price*p.quantity)*100));
   razorpayInstance.orders.create({ amount: Number(total), currency: "INR" }, async (err, order) => {
-    console.log("order created at nodejs server", order);
     const newOrder = await orderModel.create({
-      products: cartDetails,
+      products: prod_qua_array,
       payment: order,
       buyer: req.user._id,
     });
     //STEP 3 & 4:
-    console.log("new order is created", newOrder);
     if (!err) res.status(200).send({ success: true, message: "New order added", newOrder, order });
-    else res.status(500).send({ success: false, message: "Error in creating new order", err });
+    else res.status(500).send({ success: false, message: "Error in creating new order" });
   });
 };
 
@@ -61,8 +65,6 @@ export const createProductController = async (req, res) => {
   try {
     const { name, description, price, category, quantity, shipping } = req.fields;
     const { photo } = req.files;
-    // console.log(photo)
-    // console.log('inside router',req.fields)
     if (!name || !description || !price || !category || !quantity || !shipping) {
       res.status(500).send({ success: false, message: "Please enter required field" });
     }
@@ -95,7 +97,6 @@ export const getAllProduct = async (req, res) => {
 
 // get single product details
 export const getProductDetails = async (req, res) => {
-  console.log(req.params);
   try {
     // const singleproduct=await productModel.findOne({slug:req.params.slug}).select("-photo")
     const singleproduct = await productModel.findOne({ slug: req.params.slug }).select("-photo");
@@ -106,15 +107,26 @@ export const getProductDetails = async (req, res) => {
   }
 };
 
+// get single product details inside similar product
+export const getProductDetailsWithCategory = async (req, res) => {
+  try {
+    
+    // const singleproduct=await productModel.findOne({slug:req.params.slug}).select("-photo")
+    const singleproduct = await productModel.findOne({ slug: req.params.slug }).populate("category").select("-photo");
+    res.status(200).send({ success: true, message: "single product details fetched", singleproduct });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ success: false, message: "error in get single product", error });
+  }
+};
+
 // search  product details [header]
 export const productSearch = async (req, res) => {
   const { keyword } = req.params;
-  console.log(keyword);
   try {
     const searchresult = await productModel.find({ $or: [{ name: { $regex: keyword, $options: "i" } }, { description: { $regex: keyword, $options: "i" } }] }).select("-photo");
     // const singleproduct=await productModel.findOne({slug:req.params.slug}).populate('category').select("-photo")
     res.status(200).send({ success: true, message: "search product details fetched", searchresult });
-    // res.json(searchresult)
   } catch (error) {
     console.log(error);
     res.status(500).send({ success: false, message: "error search product", error });

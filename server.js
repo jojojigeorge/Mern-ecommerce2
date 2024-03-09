@@ -26,7 +26,7 @@ app.use('/api/v1/product',productRouter)
 
         
 // connect mongodb
-// connectDB()
+connectDB()
 
 
 
@@ -39,12 +39,12 @@ app.get('/hello',(req,res)=>{
 const PORT =process.env.PORT||8080
 
 // run listen
-// app.listen(PORT,()=>{
-//     console.log(`Server Running in ${PORT}`.blue)
-// })
-
-connectDB().then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server Running in ${PORT}`.blue)
-    })
+app.listen(PORT,()=>{
+    console.log(`Server Running in ${PORT}`.blue)
 })
+
+// connectDB().then(() => {
+//     app.listen(PORT, () => {
+//         console.log(`Server Running in ${PORT}`.pink)
+//     })
+// })

@@ -2,17 +2,22 @@ import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout/Layout";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import { useCart } from "../context/CartContext";
+import toast from "react-hot-toast";
 
-const ProductDetails = () => {
+const ProductDetails = () => {  
   const [product, setProduct] = useState({});
   const [similarproducts,setSimilarProducts]=useState([])
   const params = useParams();
+
+  // context
+  const [cartDetails, setCartDetails] = useCart();
+
 
   // get similar products
   const getSimilarProducts=async(pid,cid)=>{
     try {
       const {data}=await axios.get(`/api/v1/product/similar-product/${pid}/${cid}`)
-      console.log(data)
       setSimilarProducts(data.similarproducts)
     } catch (error) {
       console.log('error in get similar products',error)
@@ -21,9 +26,8 @@ const ProductDetails = () => {
 
   // get selected product details
   const getProductDetails = async () => {
-    try {
-      const { data } = await axios.get(`/api/v1/product/get-productdetails/${params.slug}`);
-      console.log(data.singleproduct);
+    try { 
+      const { data } = await axios.get(`/api/v1/product/get-productdetailswithcategory/${params.slug}`);
       setProduct(data.singleproduct);
       getSimilarProducts(data.singleproduct._id,data.singleproduct.category._id)
     } catch (error) {
@@ -35,13 +39,14 @@ const ProductDetails = () => {
   useEffect(() => {
     if (params.slug) getProductDetails();
   }, [params.slug]); 
+  
 
-  return (
+  return (  
     <>
       <Layout>  
         <div className="row container mt-3">    
-          <div className="col-md-6  "> 
-            <img className="ms-5" src={`http://localhost:8081/api/v1/product/getproduct-photo/${product._id}`} height={300} width={"350px"} alt="photo" />
+          <div className="col-md-6  ">  
+            <img className="ms-5" src={`/api/v1/product/getproduct-photo/${product._id}`} height={300} width={"350px"} alt="photo" />
           </div>
           <div className="col-md-6 ">
             <h1 className="text-center">Product Details</h1>
@@ -49,7 +54,12 @@ const ProductDetails = () => {
             <p><strong>Description :</strong> {product.description}</p>
             <p><strong>Price :</strong> {product.price}</p>
             <p><strong>Category : </strong>{product?.category?.category}</p>
-            <button className="btn btn-secondary ms-1">ADD TO CART</button>
+            <button className="btn btn-secondary ms-1" onClick={(e) => {
+                          e.preventDefault;
+                          setCartDetails([...cartDetails, product]);
+                          localStorage.setItem("cart", JSON.stringify([...cartDetails, product]));
+                          toast.success("product added to cart");
+                        }}>ADD TO CART</button> 
           </div>
         </div>    
         <hr />
@@ -60,7 +70,7 @@ const ProductDetails = () => {
               <div key={p._id} className="card m-2" style={{ width: "11rem", height:""}}>
                 <Link to={`/product/${p.slug}`} className="product-link">
                 <img
-                  src={`http://localhost:8081/api/v1/product/getproduct-photo/${p._id}`}
+                  src={`/api/v1/product/getproduct-photo/${p._id}`}
                   className="card-img-top"
                   alt={p.name}  
                   style={{height:"11rem"}}  

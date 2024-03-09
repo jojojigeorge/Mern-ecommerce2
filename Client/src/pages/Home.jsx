@@ -115,6 +115,25 @@ export const Home = () => {
     if (page == 1) return;
     handlLoadmore();
   }, [page]);
+  const handleAddToCart=(p)=>{
+    
+      // e.preventDefault;
+      let mycart=[{product:'',quantity:''}]
+      console.log('add to cart',mycart)
+      mycart = [...cartDetails];
+      let itemIndex = cartDetails.findIndex(item => item.product._id === p._id)
+      if (itemIndex !== -1) {
+        mycart[itemIndex].quantity++;
+      } else {
+        mycart.push({product:p,quantity:1});
+      }
+      setCartDetails(mycart);
+      localStorage.setItem("cart", JSON.stringify(mycart));
+      // setCartDetails([...cartDetails,{product:p,quantity:1}]);
+      // localStorage.setItem("cart", JSON.stringify([...cartDetails, {product:p,quantity:1}]));
+      toast.success("product added to cart");
+    
+  }
   return (
     <>
       <Layout>
@@ -144,20 +163,20 @@ export const Home = () => {
                   <div key={p._id}>
                     <Radio value={p.array}>{p.name}</Radio>
                   </div>
-                ))}
+                ))} 
               </Radio.Group>
             </div>
           </div>
           <div className="col-md-10">
             <h5 className="text-center">All Products</h5>
-            <Carousel/>
+            <Carousel/> 
             <br />  
             <div className="d-flex flex-wrap">
               {allproducts ? (
                 allproducts.map((p) => (
                   <div key={p._id} className="card m-2" style={{ width: "14rem", height: "" }}>
                     <Link to={`product/${p.slug}`} className="product-link">
-                      <img src={`http://localhost:8081/api/v1/product/getproduct-photo/${p._id}`} className="card-img-top" alt={p.name} style={{ height: "14rem" }} />
+                      <img src={`/api/v1/product/getproduct-photo/${p._id}`} className="card-img-top" alt={p.name} style={{ height: "14rem" }} />
                     </Link>
                     <div className="card-body text-center">
                       <h6 className="card-title">{p.name.substring(0, 20)}...</h6>
@@ -165,12 +184,7 @@ export const Home = () => {
                       <p className="card-text"> ₹ {p.price}</p>
                       <button
                         className="btn btn-secondary mt-1"
-                        onClick={(e) => {
-                          e.preventDefault;
-                          setCartDetails([...cartDetails, p]);
-                          localStorage.setItem("cart", JSON.stringify([...cartDetails, p]));
-                          toast.success("product added to cart");
-                        }}
+                        onClick={()=>handleAddToCart(p)}
                       >
                         ADD TO CART
                       </button>

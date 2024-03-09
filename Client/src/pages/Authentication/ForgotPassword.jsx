@@ -23,7 +23,6 @@ function ForgotPassword() {
     const newpassword = newpasswordRef.current.value;
     try {
       const res = await axios.post("/api/v1/auth/forgot-password", { email, newpassword ,question});
-      console.log(res,"---------------------")
       if (res.data.success) {
         setAuthDetails({
           ...authDetails,

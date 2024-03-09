@@ -14,7 +14,7 @@ const ViewProduct = () => {
   // get single product details using slug
   const getSingleProduct=async()=>{
     try {
-      const {data}=await axios.get(`api/v1/product/get-productdetails/${params.slug}`)
+      const {data}=await axios.get(`/api/v1/product/get-productdetails/${params.slug}`)
       setProductDetails((p)=>({...p,...data.singleproduct}))
     } catch (error) {
       console.log(error)
@@ -55,6 +55,6 @@ const ViewProduct = () => {
         </div>
       </div>
     </Layout>
-  );
+  );  
 };
 export default ViewProduct
