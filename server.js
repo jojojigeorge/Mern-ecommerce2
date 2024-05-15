@@ -8,7 +8,7 @@ import categoryRouter from "./routes/categoryRoute.js"
 import productRouter from "./routes/productRoute.js"
 import cors from "cors"
 
-// rest object
+// rest object 
 const app=express()
 
 // config dotenv
