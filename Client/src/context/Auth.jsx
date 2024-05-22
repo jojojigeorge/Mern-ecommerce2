@@ -13,7 +13,7 @@ const AuthProvider = ({children}) => {
   // console.log(process.env.PORT)
 
   
-  // axios.defaults.baseURL = 'http://localhost:8081'
+  axios.defaults.baseURL = 'https://server-mern-ecommerce2.vercel.app/'
   axios.defaults.headers.common["Authorization"] = authDetails.token;
     useEffect(()=>{
       const data=localStorage.getItem('authDetails')
