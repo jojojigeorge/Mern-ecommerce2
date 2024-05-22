@@ -1,4 +1,4 @@
-import axios from 'axios'
+  import axios from 'axios'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 // import dotenv from "dotenv"
 // dotenv.config()
@@ -22,6 +22,7 @@ const AuthProvider = ({children}) => {
           user:parseData.user,
           token:parseData.token
         })
+        console.log('inside Auth authorization',parseData)
       }
     },[])
   return (

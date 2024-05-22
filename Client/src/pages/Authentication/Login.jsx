@@ -9,11 +9,11 @@ import { useAuth } from "../../context/Auth";
 function Login() {
   const [authDetails,setAuthDetails] =useAuth()
   const nameRef = useRef();
-  const passwordRef = useRef();
+  const passwordRef = useRef(); 
 
   const navigate = useNavigate();
   const location =useLocation()
-  // console.log("inside login",location)
+  console.log("inside login",location)
 
   const handleLogin = async (e) => {
     e.preventDefault();

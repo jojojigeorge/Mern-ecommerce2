@@ -6,7 +6,8 @@ const Spinner = ({path='/login'}) => {
     const [count,setCount]=useState(3)
     const navigate=useNavigate()
     const location =useLocation()
-    // console.log('spinner',location)
+    console.log('spinner',location) 
+    console.log('spinner path',path)
 
     useEffect(()=>{
         const interval=setInterval(()=>{
@@ -16,7 +17,7 @@ const Spinner = ({path='/login'}) => {
             state:location.pathname
         })
         return ()=> clearInterval(interval)
-    },[count,navigate,location])
+    },[count,navigate,location,path])
   return (
     <Layout>
       <div style={{ height: "85vh" }} className="d-flex flex-column justify-content-center align-items-center">
