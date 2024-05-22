@@ -2,15 +2,20 @@
     "version": 2,
     "builds": [
         {
-           "src": "*.js",
+            "src": "*.js",
             "use": "@vercel/node"
         }
     ],
-   
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/"
+        }
+    ],
     "redirects": [
         {
-          "source": "/api",
-          "destination": "https://server-mern-ecommerce2.vercel.app/"
+            "source": "/(.*)",
+            "destination": "https://server-mern-ecommerce2.vercel.app/"
         }
-      ]
+    ]
 }
