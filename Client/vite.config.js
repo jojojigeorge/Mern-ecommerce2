@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:8081",
+        target: 'https://server-mern-ecommerce2.vercel.app/',
         changeOrigin: true,
         secure: false,
       },
