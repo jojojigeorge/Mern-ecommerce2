@@ -11,6 +11,8 @@ const AuthProvider = ({children}) => {
   // default axios
   // axios.defaults.headers.common['Authorization']=authDetails?.token
   // console.log(process.env.PORT)
+
+  
   // axios.defaults.baseURL = 'http://localhost:8081'
   axios.defaults.headers.common["Authorization"] = authDetails.token;
     useEffect(()=>{

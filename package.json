@@ -5,9 +5,9 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "server": "node server.js",
+    "server": "node index.js",
     "client": "npm run dev --prefix ./Client",
-    "dev": "nodemon server.js",
+    "dev": "nodemon index.js",
     "start": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],

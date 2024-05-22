@@ -17,7 +17,10 @@ dotenv.config()
 // middleware
 app.use(express.json())
 app.use(morgan('dev'))
-app.use(cors())
+// app.use(cors())
+
+app.use(cors());
+app.options('*', cors());
 
 // routes
 app.use('/api/v1/auth',authRoutes)
