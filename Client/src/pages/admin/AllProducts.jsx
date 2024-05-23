@@ -107,7 +107,7 @@ const AllProducts = () => {
                   <div   className="card m-2" style={{ width: "18rem", height:'10rem' }} >
                     <Link to={`/dashboard/admin/view-product/${p.slug}`} className="product-link">
                       <div >
-                        <img src={`/api/v1/product/getproduct-photo/${p._id}`} alt={p.name} style={{ height: "60px", width: "60px" }} className="card-img-top " />
+                        <img src={`${import.meta.env.VITE_BASE_URL}/api/v1/product/getproduct-photo/${p._id}`} alt={p.name} style={{ height: "60px", width: "60px" }} className="card-img-top " />
                         <h6 className=" d-inline">{p.name.substring(0,25)}...</h6>
                         <p className="">{p.description.substring(0,30)}...</p>
                       </div>

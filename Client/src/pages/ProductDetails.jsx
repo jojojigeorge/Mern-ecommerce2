@@ -46,7 +46,7 @@ const ProductDetails = () => {
       <Layout>  
         <div className="row container mt-3">    
           <div className="col-md-6  ">  
-            <img className="ms-5" src={`/api/v1/product/getproduct-photo/${product._id}`} height={300} width={"350px"} alt="photo" />
+            <img className="ms-5" src={`${import.meta.env.VITE_BASE_URL}/api/v1/product/getproduct-photo/${product._id}`} height={300} width={"350px"} alt="photo" />
           </div>
           <div className="col-md-6 ">
             <h1 className="text-center">Product Details</h1>
@@ -70,7 +70,7 @@ const ProductDetails = () => {
               <div key={p._id} className="card m-2" style={{ width: "11rem", height:""}}>
                 <Link to={`/product/${p.slug}`} className="product-link">
                 <img
-                  src={`/api/v1/product/getproduct-photo/${p._id}`}
+                  src={`${import.meta.env.VITE_BASE_URL}/api/v1/product/getproduct-photo/${p._id}`}
                   className="card-img-top"
                   alt={p.name}  
                   style={{height:"11rem"}}  

@@ -35,7 +35,7 @@ const SingleProduct = ({value,setValue,handleSubmit,allcat}) => {
           </div>
         ):( 
           <div className="mb-3 text-center">
-            <img src={`/api/v1/product/getproduct-photo/${value?._id}`} height={"150px"} alt="getphoto" />
+            <img src={`${import.meta.env.VITE_BASE_URL}/api/v1/product/getproduct-photo/${value?._id}`} height={"150px"} alt="getphoto" />
           </div>  
         )}
         <button className="btn btn-primary mt-3" onClick={handleSubmit}>
