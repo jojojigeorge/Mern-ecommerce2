@@ -112,6 +112,7 @@ export const Home = () => {
     }
   };
   useEffect(() => {
+    console.log(import.meta.env.VITE_BASE_URL)
     if (page == 1) return;
     handlLoadmore();
   }, [page]);
