@@ -17,7 +17,7 @@ const ProductDetails = () => {
   // get similar products
   const getSimilarProducts=async(pid,cid)=>{
     try {
-      const {data}=await axios.get(`/api/v1/product/similar-product/${pid}/${cid}`)
+      const {data}=await axios.get(`${import.meta.env.VITE_BASE_URL}/api/v1/product/similar-product/${pid}/${cid}`)
       setSimilarProducts(data.similarproducts)
     } catch (error) {
       console.log('error in get similar products',error)

@@ -176,7 +176,7 @@ export const Home = () => {
                 allproducts.map((p) => (
                   <div key={p._id} className="card m-2" style={{ width: "14rem", height: "" }}>
                     <Link to={`product/${p.slug}`} className="product-link">
-                      <img src={`/api/v1/product/getproduct-photo/${p._id}`} className="card-img-top" alt={p.name} style={{ height: "14rem" }} />
+                      <img src={`https://server-mern-ecommerce2.vercel.app/api/v1/product/getproduct-photo/${p._id}`} className="card-img-top" alt={p.name} style={{ height: "14rem" }} />
                     </Link>
                     <div className="card-body text-center">
                       <h6 className="card-title">{p.name.substring(0, 20)}...</h6>
