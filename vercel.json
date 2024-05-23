@@ -14,7 +14,7 @@
     ],
     "redirects": [
         {
-            "source": "/getproduct-photo/:path*",
+            "source": "/getproduct-photo",
             "destination": "https://server-mern-ecommerce2.vercel.app/api/v1/product/getproduct-photo/:path*"
         }
     ]
