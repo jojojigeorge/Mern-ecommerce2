@@ -97,7 +97,7 @@ const CartPage = () => {
             {cartDetails?.map((p) => (
               <div key={p.product._id} className="row mb-2 p-3 card flex-row">
                 <div className="col-md-4">
-                  <img src={`/api/v1/product/getproduct-photo/${p.product._id}`} className="card-img-top" alt={p.product.name} width="100px" height={"100px"} />
+                  <img src={`${import.meta.env.VITE_BASE_URL}/api/v1/product/getproduct-photo/${p.product._id}`} className="card-img-top" alt={p.product.name} width="100px" height={"100px"} />
                 </div>
                 <div className="col-md-8">
                   <p>{p.product.name}</p>
