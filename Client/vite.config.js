@@ -1,7 +1,10 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 
+
+
 export default defineConfig({
+  base: 'https://server-mern-ecommerce2.vercel.app/',
   server: {
     proxy: {
       "/api": {
