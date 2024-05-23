@@ -17,7 +17,7 @@ const ProductDetails = () => {
   // get similar products
   const getSimilarProducts=async(pid,cid)=>{
     try {
-      const {data}=await axios.get(`${import.meta.env.VITE_BASE_URL}/api/v1/product/similar-product/${pid}/${cid}`)
+      const {data}=await axios.get(`/api/v1/product/similar-product/${pid}/${cid}`)
       setSimilarProducts(data.similarproducts)
     } catch (error) {
       console.log('error in get similar products',error)
@@ -46,7 +46,7 @@ const ProductDetails = () => {
       <Layout>  
         <div className="row container mt-3">    
           <div className="col-md-6  ">  
-            <img className="ms-5" src={`/api/v1/product/getproduct-photo/${product._id}`} height={300} width={"350px"} alt="photo" />
+            <img className="ms-5" src={`${import.meta.env.VITE_BASE_URL}/api/v1/product/getproduct-photo/${product._id}`} height={300} width={"350px"} alt="photo" />
           </div>
           <div className="col-md-6 ">
             <h1 className="text-center">Product Details</h1>
