@@ -11,5 +11,11 @@
             "src": "/(.*)",
             "dest": "/"
         }
+    ],
+    "redirects": [
+        {
+            "source": "/getproduct-photo",
+            "destination": "https://server-mern-ecommerce2.vercel.app"
+        }
     ]
 }
