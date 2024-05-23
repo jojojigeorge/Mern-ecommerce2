@@ -11,11 +11,5 @@
             "src": "/(.*)",
             "dest": "/"
         }
-    ],
-    "redirects": [
-        {
-            "source": "/(.*)",
-            "destination": "https://server-mern-ecommerce2.vercel.app/"
-        }
     ]
 }
