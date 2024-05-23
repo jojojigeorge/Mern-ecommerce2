@@ -19,8 +19,8 @@ app.use(express.json())
 app.use(morgan('dev'))
 // app.use(cors())
 
-// app.use(cors());
-// app.options('*', cors());
+app.use(cors());
+app.options('*', cors());
 app.use(cors(
     {
       origin:["https://client-mern-ecommerce2.vercel.app"],
